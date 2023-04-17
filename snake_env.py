@@ -2,8 +2,8 @@ import gym
 from gym import spaces
 from PyQt5.QtCore import Qt
 import numpy as np
-from snake import Snake
-from food import Food
+from Game.snake import Snake
+from Game.food import Food
 import pygame
 import math
 

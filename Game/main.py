@@ -1,8 +1,8 @@
 from PyQt5.QtCore import Qt, QTimer, QRect
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox, QPushButton
 from PyQt5.QtGui import QPainter, QColor, QPen
-from snake import Snake
-from food import Food
+from Game.snake import Snake
+from Game.food import Food
 
 def red_to_blue(steps):
     gradient_colors = []
