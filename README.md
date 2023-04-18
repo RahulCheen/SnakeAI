@@ -21,5 +21,5 @@ These scripts train either a DQN (Deep Q-Network) or a PPO (Proximal Policy Opti
 # run_PPO.py and run_DQN.py
 These are used to watch the agents of the respective models run. They look for a .zip file in the main directory, so there's no need to move any files around after training a model. Just run the script and watch it go. I have been messing around with some loggign to evaluate performance so these will probably change a little bit as I work on this project.
 
-#custom_cnn_policy.py
+# custom_cnn_policy.py
 This defines a custom convolutional neural network so I can modify network architecture as I need. It is not currently used by either trainer but the import is already defined in each trainer if you want to play with it.
