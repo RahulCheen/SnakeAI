@@ -1,0 +1,6 @@
+# base game
+pyqt5
+
+# training models
+stable_baselines3
+pygame
