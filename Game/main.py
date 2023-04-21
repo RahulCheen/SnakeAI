@@ -142,7 +142,21 @@ class GameWidget(QWidget):
         self.food = Food()
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-wp", "--width", type=int, default=1280, help="Width of the game window")
+    parser.add_argument("-hp", "--height", type=int, default=720, help="Height of the game window")
+    parser.add_argument("-fr", "--frame_rate", type=int, default=25, help="Frame rate of the game")
+
+    input_args = parser.parse_args()
+
     app = QApplication([])
-    main_window = MainWindow(1280, 720, step_time_ms=10)
+    main_window = MainWindow(
+        game_width=input_args.width, 
+        game_height=input_args.height, 
+        step_time_ms=int(1000/input_args.frame_rate),
+        )
     main_window.show()
     app.exec_()
