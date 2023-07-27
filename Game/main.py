@@ -15,26 +15,27 @@ def red_to_blue(steps):
     return gradient_colors
 
 class MainWindow(QMainWindow):
-    def __init__(self, game_width, game_height):
+    def __init__(self, game_width, game_height, step_time_ms):
         super().__init__()
 
         self.setWindowTitle("Snake!")
         self.setFixedSize(game_width, game_height)
 
-        self.game_widget = GameWidget(self, game_width, game_height)
+        self.game_widget = GameWidget(self, game_width, game_height, step_time_ms)
         self.setCentralWidget(self.game_widget)
 
     def keyPressEvent(self, event):
         self.game_widget.handleKeyPress(event)
 
 class GameWidget(QWidget):
-    def __init__(self, parent, game_width, game_height):
+    def __init__(self, parent, game_width, game_height, step_time_ms):
         super().__init__(parent)
+        self.step_time_ms = step_time_ms
 
         self.setFixedSize(game_width, game_height)
         self.setFocusPolicy(Qt.StrongFocus)
 
-        self.snake = Snake()
+        self.snake = Snake(self.step_time_ms)
         self.food = Food()
 
         self.key_pressed = None
@@ -44,7 +45,7 @@ class GameWidget(QWidget):
 
     def startGame(self):
         self.snake.reset()
-        self.timer.start(40)
+        self.timer.start(self.step_time_ms)
 
     def handleKeyPress(self, event):
         self.key_pressed = event.key()
@@ -137,11 +138,25 @@ class GameWidget(QWidget):
             self.parent().close()
 
     def resetGame(self):
-        self.snake = Snake()
+        self.snake = Snake(self.step_time_ms)
         self.food = Food()
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-wp", "--width", type=int, default=1280, help="Width of the game window")
+    parser.add_argument("-hp", "--height", type=int, default=720, help="Height of the game window")
+    parser.add_argument("-fr", "--frame_rate", type=int, default=25, help="Frame rate of the game")
+
+    input_args = parser.parse_args()
+
     app = QApplication([])
-    main_window = MainWindow(1280, 720)
+    main_window = MainWindow(
+        game_width=input_args.width, 
+        game_height=input_args.height, 
+        step_time_ms=int(1000/input_args.frame_rate),
+        )
     main_window.show()
     app.exec_()
