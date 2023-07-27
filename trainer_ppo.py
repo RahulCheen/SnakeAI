@@ -14,7 +14,7 @@ def main():
     params = {
         "learning_rate": 1e-4,
         "n_steps": 16384,
-        "batch_size": 128,
+        "batch_size": 512,
         "n_epochs": 10,
         "gamma": 0.99,
         "gae_lambda": 0.95,
@@ -28,7 +28,7 @@ def main():
         "target_kl": 1,
         "verbose": 1,
         "tensorboard_log": None, 
-        "seed": None,
+        "seed": 69420,
     }
 
     model = PPO(
@@ -37,7 +37,7 @@ def main():
         **params
     )
 
-    model.learn(total_timesteps=1_000_000)
+    model.learn(total_timesteps=1_500_000)
 
     agent = '{:03d}'.format(len(glob.glob("./Agents Archive/ppo*.zip"))+1)
     model.save(f"./Agents Archive/ppo_snake_agent{agent}")
